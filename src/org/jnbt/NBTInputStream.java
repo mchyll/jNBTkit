@@ -65,12 +65,16 @@ public final class NBTInputStream implements Closeable {
 	 * Creates a new <code>NBTInputStream</code>, which will source its data
 	 * from the specified input stream.
 	 * @param is The input stream.
+         * @param gzipped If the stream is gzipped.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	public NBTInputStream(InputStream is) throws IOException {
+	public NBTInputStream(InputStream is, boolean gzipped) throws IOException {
+            if(gzipped)
 		this.is = new DataInputStream(new GZIPInputStream(is));
+            else
+                this.is = new DataInputStream(is);
 	}
-	
+
 	/**
 	 * Reads an NBT tag from the stream.
 	 * @return The tag that was read.
